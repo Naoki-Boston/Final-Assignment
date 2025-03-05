@@ -1,132 +1,189 @@
-# Final-Assignment
-# Command Line Task Management App
+# Command-Line Task Management App
 
 #### Video Demo: https://youtu.be/Rnm6Zfrz_gI
 
-## Project Overview
+## Project Background
 
-This project is a command line-based task management application developed using Python. It manages task data using the local file system without relying on external APIs. Users can access basic task management functions including adding tasks, listing tasks, editing, marking as complete, and deleting tasks.
+In today's digital environment, efficient task management is key to improving productivity. This command-line task management application was developed as a solution that combines simplicity and flexibility. Designed as an alternative to complex GUI tools and expensive project management software, it aims to provide a quick and easy way to manage tasks directly from the terminal.
 
-## Features
+## Detailed Features
 
-- Add tasks (with title, priority, and deadline options)
-- Display task lists (with various filtering options)
+### 1. Comprehensive Task Management
+
+#### Task Addition
+- Detailed task information input
+  - Title (required)
+  - Priority (high, medium, low)
+  - Due date
+- Automatic unique task ID generation
+- Automatic task creation timestamp recording
+
+#### Task Listing
+- Flexible filtering options
+  - Priority-based display
+  - Due date-based display
+  - Complete/incomplete task toggling
+- Clear tabular output
+- Detailed task information display
+
+#### Task Management
 - Mark tasks as complete
-- Delete tasks
-- Export tasks to CSV files
-- Import tasks from CSV files
-- Display task statistics (completion rate, number of tasks by priority, etc.)
+- Task deletion
+- Automatic completion timestamp recording
 
+### 2. Data Management Features
 
-## File Structure
+#### Export/Import
+- Task export to CSV files
+  - Saving all task information
+- Task import from CSV files
+  - Avoiding duplicate tasks
+  - ID reassignment
 
-- `project.py`: Main program file implementing command line argument processing and various task management functions.
-- `test_project.py`: File for testing each function in the project. Runs automated tests using pytest.
-- `requirements.txt`: List of Python libraries required for the project.
-- `README.md`: File containing project description and usage instructions (this file).
-- `tasks.json`: JSON file where the application stores generated task data.
+#### Data Persistence
+- Local storage using JSON files
+- Human-readable data format
+- Safe data saving and loading
 
-## Implementation Details
+### 3. Analysis and Insights
 
-### project.py
+#### Task Statistics
+- Total number of tasks
+- Completed tasks and completion rate
+- Priority-based task distribution
+- Overdue task tracking
+- Average task completion time
 
-This file contains the following main functions:
+## Installation Guide
 
-1. `main()`:  Program entry point. Parses command line arguments and calls appropriate functions.
-2. `add_task(title, priority, due_date)`: Adds a new task with the specified title, priority, and deadline.
-3. `list_tasks(show_all, priority_filter, due_days)`: Displays task list. Filtering options can be specified.
-4. `complete_task(task_id)`: Marks the task with the specified ID as complete.
-5. `delete_task(task_id)`: Deletes the task with the specified ID.
-6. `export_tasks(filename)`: Exports tasks to a CSV file.
-7. `import_tasks(filename)`: Imports tasks from a CSV file.
-8. `show_stats()`: Displays task statistics.
-9. `load_tasks()` and `save_tasks(tasks)`: Loads and saves task data from/to JSON file.
+### System Requirements
 
-### Design Choices
+- **Operating Systems**: 
+  - macOS 10.14+
+  - Windows 10+
+  - Linux (Ubuntu 18.04+, Fedora 30+)
+- **Python**: Version 3.7 or higher
+- **Required Permissions**: 
+  - File read/write access
+  - Python execution environment
 
-- **Data Storage Format**: JSON was chosen because it works well with Python and allows for easy handling of structured data. It also stores data in a human-readable format.
-- **Command Line Interface**: Implemented a subcommand-style interface using argparse. This allows for intuitive operation with a git-like command system.
-- **Modularity性**: Each feature is implemented as an independent function, making testing and maintenance easier.
-- **Filtering Options**: Multiple filtering options are provided for task list display, allowing users to quickly find necessary tasks even when there are many tasks.
+### Installation Steps
 
-## Usage
-
-### Installation
-
+1. Verify Python
+```bash
+python3 --version
 ```
+
+2. Create Virtual Environment (Recommended)
+```bash
+python3 -m venv taskmanager-env
+source taskmanager-env/bin/activate  # macOS/Linux
+taskmanager-env\Scripts\activate     # Windows
+```
+
+3. Install Dependencies
+```bash
 pip install -r requirements.txt
 ```
+
+## Detailed Usage
 
 ### Basic Commands
 
 #### Adding Tasks
+```bash
+# Simple addition
+python project.py add "Create shopping list"
 
-```
-python project.py add "Write report" --priority high --due 2023-12-31
-```
-
-Or in short form:
-
-```
-python project.py add "Buy milk" -p low -d 2023-12-25
+# Specify priority and due date
+python project.py add "Project report" --priority high --due 2024-03-15
 ```
 
-#### Displaying Task List
-
-All tasks (only incomplete ones):
-
-```
+#### Listing Tasks
+```bash
+# Default (incomplete tasks)
 python project.py list
-```
 
-All tasks (including completed ones):
-
-```
+# All tasks
 python project.py list --all
-```
 
-Filtering by priority:
-
-```
+# Only high-priority tasks
 python project.py list --priority high
-```
 
-Filtering by deadline (tasks due within 7 days):
-
-```
+# Tasks due within 7 days
 python project.py list --due 7
 ```
 
-#### Marking Tasks as Complete
+#### Task Management
+```bash
+# Mark task as complete
+python project.py complete 3
 
-```
-python project.py complete 1
-```
-
-#### Deleting Tasks
-
-```
+# Delete task
 python project.py delete 2
 ```
 
-#### Exporting Tasks
+#### Data Management
+```bash
+# Export tasks to CSV
+python project.py export mytasks_backup.csv
 
-```
-python project.py export tasks_backup.csv
-```
-
-#### Importing Tasks
-
-```
-python project.py import tasks_backup.csv
+# Import tasks from another CSV
+python project.py import external_tasks.csv
 ```
 
-#### Displaying Statistics
-
-```
+#### Analysis
+```bash
+# Display task statistics
 python project.py stats
 ```
 
-## Development Challenges
+## Advanced Usage Scenarios
 
-One of the main challenges faced when developing this project was designing the command line interface.
+### Scenario 1: Project Management
+1. Add all project tasks
+2. Filter by priority
+3. Track deadlines
+4. Regularly check statistics
+
+### Scenario 2: Personal Task Management
+- Quickly add daily tasks
+- Focus on tasks approaching deadline
+- Track completion rate
+
+## Troubleshooting
+
+### Common Issues and Solutions
+- **JSON file corruption**: Delete `tasks.json` and restart the app
+- **Import errors**: Verify CSV file format
+- **Permission errors**: Ensure appropriate permissions
+
+## Future Development Plans
+
+- [ ] Recurring task support
+- [ ] Reminder functionality
+- [ ] Cloud synchronization option
+- [ ] Tagging feature
+
+## How to Contribute
+
+1. Check Issues
+2. Fork the repository
+3. Create a new branch
+4. Commit changes
+5. Submit a pull request
+
+## License
+
+[Add appropriate open-source license (e.g., MIT)]
+
+## Contact & Support
+
+- Email: [your-email]
+- GitHub Issues: [your-repository-url]
+
+## Credits
+
+- Development: [Your Name]
+- Design: [Designer Name]
+- Testing Collaboration: [Tester Names]
